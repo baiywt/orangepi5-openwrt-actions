@@ -99,7 +99,7 @@ jobs:
       run: |
         cd openwrt
         echo -e "$(nproc) thread compile"
-        make -j$(nproc) || rm staging_dir/hostpkg/bin/python3* build_dir/target-aarch64_generic_musl/u-boot-orangepi-5-rk3588/u-boot-2023.04 && make -j$(nproc) || make -j1 V=s
+        make -j$(nproc) || rm -rf staging_dir/hostpkg/bin/python3* build_dir/target-aarch64_generic_musl/u-boot-orangepi-5-rk3588 && make -j$(nproc) || make -j1 V=s
         echo "::set-output name=status::success"
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
